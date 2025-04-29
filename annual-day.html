@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Annual Day - Godavari School</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@tailwindcss/browser@latest"></script>
+    <style>
+      /* Custom CSS for the colorful logo */
+      .logo-colorful {
+        font-family: 'Inter', sans-serif;
+        font-size: 2rem;
+        font-weight: 700;
+        display: inline-flex;
+        gap: 0px;
+      }
+      .logo-colorful span {
+        display: inline-block;
+      }
+      .logo-colorful .char1 { color: #ff0000; }
+      .logo-colorful .char2 { color: #ff7f00; }
+      .logo-colorful .char3 { color: #ffff00; }
+      .logo-colorful .char4 { color: #00ff00; }
+      .logo-colorful .char5 { color: #0000ff; }
+      .logo-colorful .char6 { color: #4b0082; }
+      .logo-colorful .char7 { color: #9400d3; }
+
+      /* Custom CSS for header */
+      .header-shadow {
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      }
+
+      /* Custom CSS for main content */
+      .event-section {
+        padding: 2rem 0;
+        background-color: #f7fafc;
+      }
+
+      .event-header {
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+
+      .event-title {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #4a5568;
+        margin-bottom: 1rem;
+      }
+
+      .event-date {
+        font-size: 1.125rem;
+        color: #718096;
+        margin-bottom: 1.5rem;
+      }
+
+      .event-images {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+        margin-bottom: 2rem;
+      }
+
+      .event-images img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 0.5rem;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      }
+
+      .event-description {
+        font-size: 1.125rem;
+        color: #4a5568;
+        line-height: 1.75;
+        text-align: justify;
+      }
+
+      /* Custom CSS for the footer */
+      .footer-bg {
+        background-color: #f7fafc;
+      }
+      .footer-text {
+        color: #4a5568;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-100 font-inter">
+    <header class="bg-white header-shadow sticky top-0 z-50 py-4">
+      <div class="container mx-auto flex justify-between items-center px-4">
+        <a href="index.html" class="logo-colorful">
+          <span class="char1">G</span>
+          <span class="char2">O</span>
+          <span class="char3">D</span>
+          <span class="char4">A</span>
+          <span class="char5">V</span>
+          <span class="char6">A</span>
+          <span class="char7">R</span>
+          <span class="char1">I</span>
+        </a>
+        <nav class="hidden md:block">
+          <ul class="flex space-x-6">
+            <li><a href="index.html#home" class="text-gray-700 hover:text-blue-600 transition duration-300">Home</a></li>
+            <li><a href="index.html#about" class="text-gray-700 hover:text-blue-600 transition duration-300">About Us</a></li>
+            <li><a href="index.html#academics" class="text-gray-700 hover:text-blue-600 transition duration-300">Academics</a></li>
+            <li><a href="index.html#events" class="text-gray-700 hover:text-blue-600 transition duration-300">Events</a></li>
+            <li><a href="index.html#contact" class="text-gray-700 hover:text-blue-600 transition duration-300">Contact</a></li>
+          </ul>
+        </nav>
+        <button id="hamburger-btn" class="md:hidden text-gray-700 focus:outline-none" aria-label="Toggle Navigation">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <div id="mobile-menu" class="hidden fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-90 z-50">
+      <div class="bg-white w-80 h-full absolute right-0 p-6">
+        <div class="flex justify-end mb-4">
+          <button id="close-menu-btn" class="text-gray-700 focus:outline-none" aria-label="Close Menu">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+        <nav class="block">
+          <ul class="space-y-4">
+            <li><a href="index.html#home" class="block text-gray-700 hover:text-blue-600 transition duration-300 text-lg">Home</a></li>
+            <li><a href="index.html#about" class="block text-gray-700 hover:text-blue-600 transition duration-300 text-lg">About Us</a></li>
+            <li><a href="index.html#academics" class="block text-gray-700 hover:text-blue-600 transition duration-300 text-lg">Academics</a></li>
+            <li><a href="index.html#events" class="block text-gray-700 hover:text-blue-600 transition duration-300 text-lg">Events</a></li>
+            <li><a href="index.html#contact" class="block text-gray-700 hover:text-blue-600 transition duration-300 text-lg">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+
+    <main class="event-section">
+      <div class="container mx-auto px-4">
+        <header class="event-header">
+          <h1 class="event-title">Annual Day</h1>
+          <p class="event-date">Date: 26th January 2024</p>
+        </header>
+        <section class="event-images">
+          <img src="annualDay1.jpg" alt="Annual Day 1">
+          <img src="annual2.jpeg" alt="Annual Day 2">
+          <img src="annual3.jpeg" alt="Annual Day 3">
+          <img src="annual4.jpeg" alt="Annual Day 4">
+        </section>
+        <article class="event-description">
+          <p>
+            The Annual Day of our school is a grand celebration where students showcase their talents through various cultural performances.
+            It is a day filled with excitement, joy, and pride for students, teachers, and parents. The event includes music, dance, drama, and
+            other performances that highlight the diverse talents of our students. Awards are also presented to recognize the achievements of
+            students in academics, sports, and other areas.
+          </p>
+          <p>
+            The entire school community comes together to make this event a success. The students work hard for weeks to prepare for their
+            performances, and the teachers and staff provide guidance and support. The Annual Day is a testament to the school's commitment
+            to holistic development and providing a platform for students to express themselves.
+          </p>
+        </article>
+      </div>
+    </main>
+
+    <footer class="footer-bg py-8 mt-20">
+      <div class="container mx-auto text-center px-4">
+        <p class="footer-text">© 2024 Godavari School. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <script>
+      const hamburgerBtn = document.getElementById("hamburger-btn");
+      const mobileMenu = document.getElementById("mobile-menu");
+      const closeMenuBtn = document.getElementById("close-menu-btn");
+      const mobileMenuLinks = mobileMenu.querySelectorAll("a");
+
+      function toggleMobileMenu() {
+        mobileMenu.classList.toggle("hidden");
+      }
+
+      hamburgerBtn.addEventListener("click", toggleMobileMenu);
+      closeMenuBtn.addEventListener("click", toggleMobileMenu);
+      mobileMenuLinks.forEach(link => {
+        link.addEventListener("click", toggleMobileMenu);
+      });
+
+      document.addEventListener('click', (event) => {
+        if (!mobileMenu.classList.contains('hidden') && !mobileMenu.contains(event.target) && event.target !== hamburgerBtn) {
+          toggleMobileMenu();
+        }
+      });
+    </script>
+  </body>
+</html>

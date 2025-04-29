@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Godavari School</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@tailwindcss/browser@latest"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <style>
+      /* Custom CSS for the colorful logo */
+      .logo-colorful {
+        font-family: 'Inter', sans-serif; /* Ensure Inter is applied */
+        font-size: 2rem; /* Adjust as needed */
+        font-weight: 700; /* Make the logo bold */
+        display: inline-flex; /* Use inline-flex for letter spacing control */
+        gap: 0px; /* Adjust spacing between letters, if needed */
+      }
+      .logo-colorful span {
+        display: inline-block; /* Each letter is an inline block */
+      }
+      .logo-colorful .char1 { color: #ff0000; } /* Red */
+      .logo-colorful .char2 { color: #ff7f00; } /* Orange */
+      .logo-colorful .char3 { color: #ffff00; } /* Yellow */
+      .logo-colorful .char4 { color: #00ff00; } /* Green */
+      .logo-colorful .char5 { color: #0000ff; } /* Blue */
+      .logo-colorful .char6 { color: #4b0082; } /* Indigo */
+      .logo-colorful .char7 { color: #9400d3; } /* Violet */
+
+      /* Custom CSS for header to make it fixed and add shadow*/
+      .header-shadow {
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      }
+
+      /* Custom CSS for the mission and vision section */
+      .mission-vision-bg {
+        background-color: #f7fafc; /* Light background for the section */
+      }
+
+      .mission-vision-card {
+        background-color: white; /* White background for the cards */
+        border-radius: 0.5rem; /* Rounded corners for the cards */
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* Add shadow to the cards */
+        padding: 2rem; /* Padding inside the cards */
+      }
+
+      /* Custom CSS for the events section */
+      .event-card {
+        background-color: white;
+        border-radius: 0.5rem;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        transition: transform 0.3s ease-in-out; /* Smooth transition for hover effect */
+      }
+
+      .event-card:hover {
+        transform: translateY(-0.5rem); /* Move the card up slightly on hover */
+      }
+
+      /* Custom CSS for the footer */
+      .footer-bg {
+        background-color: #f7fafc; /* Light background for the footer */
+      }
+      .footer-text {
+        color: #4a5568;
+      }
+
+      /* Custom CSS for অধ্যক্ষ বাণী section */
+      .message-bg {
+        background-color: #e2e8f0; /* Light gray background for the section */
+      }
+
+      .message-card {
+        background-color: white;
+        border-radius: 0.5rem;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        padding: 2rem;
+      }
+
+      /* Custom CSS for Our Branches section */
+      .branch-card {
+        background-color: white;
+        border-radius: 0.5rem;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        padding: 2rem;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-100 font-inter">
+    <header class="bg-white header-shadow sticky top-0 z-50 py-4">
+      <div class="container mx-auto flex justify-between items-center px-4">
+        <a href="#" class="logo-colorful">
+          <span class="char1">G</span>
+          <span class="char2">O</span>
+          <span class="char3">D</span>
+          <span class="char4">A</span>
+          <span class="char5">V</span>
+          <span class="char6">A</span>
+          <span class="char7">R</span>
+          <span class="char1">I</span>
+        </a>
+        <nav class="hidden md:block">
+          <ul class="flex space-x-6">
+            <li><a href="#home" class="text-gray-700 hover:text-blue-600 transition duration-300">Home</a></li>
+            <li><a href="#about" class="text-gray-700 hover:text-blue-600 transition duration-300">About Us</a></li>
+            <li><a href="#academics" class="text-gray-700 hover:text-blue-600 transition duration-300">Academics</a></li>
+            <li><a href="#events" class="text-gray-700 hover:text-blue-600 transition duration-300">Events</a></li>
+            <li><a href="#contact" class="text-gray-700 hover:text-blue-600 transition duration-300">Contact</a></li>
+          </ul>
+        </nav>
+        <button id="hamburger-btn" class="md:hidden text-gray-700 focus:outline-none" aria-label="Toggle Navigation">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <div id="mobile-menu" class="hidden fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-90 z-50">
+      <div class="bg-white w-80 h-full absolute right-0 p-6">
+        <div class="flex justify-end mb-4">
+          <button id="close-menu-btn" class="text-gray-700 focus:outline-none" aria-label="Close Menu">
+             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+        <nav class="block">
+          <ul class="space-y-4">
+            <li><a href="#home" class="block text-gray-700 hover:text-blue-600 transition duration-300 text-lg">Home</a></li>
+            <li><a href="#about" class="block text-gray-700 hover:text-blue-600 transition duration-300 text-lg">About Us</a></li>
+            <li><a href="#academics" class="block text-gray-700 hover:text-blue-600 transition duration-300 text-lg">Academics</a></li>
+            <li><a href="#events" class="block text-gray-700 hover:text-blue-600 transition duration-300 text-lg">Events</a></li>
+            <li><a href="#contact" class="block text-gray-700 hover:text-blue-600 transition duration-300 text-lg">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+
+    <section id="home" class="bg-gradient-to-br from-pink-100 to-yellow-100 py-20 relative overflow-hidden">
+        <div class="container mx-auto text-center px-4 relative z-10">
+          <h1 class="text-3xl font-semibold text-gray-800 mb-4">Welcome to Godavari School</h1>
+          <p class="text-lg text-gray-700 mb-8">Nurturing young minds, shaping future leaders.</p>
+          <a href="#about" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-full transition duration-300">Learn More</a>
+        </div>
+        <img src="bg.jpeg" alt="School Building" class="absolute inset-0 object-cover w-full h-full opacity-20">
+      </section>
+
+    <section id="about" class="py-20">
+      <div class="container mx-auto text-center px-4">
+        <h2 class="text-2xl font-semibold text-gray-800 mb-8">About Us</h2>
+        <p class="text-lg text-gray-700 mb-8">
+          Godavari School is a leading educational institution dedicated to providing a nurturing and stimulating environment for children.
+          We offer classes from Play Group to Class 4, focusing on holistic development and academic excellence.
+        </p>
+        <div class="flex flex-wrap justify-center gap-8 mt-12 mission-vision-bg py-10">
+            <div class="mission-vision-card w-full md:w-5/12">
+              <h3 class="text-xl font-semibold text-blue-600 mb-4">🎯 Our Mission</h3>
+              <p class="text-gray-700">
+                To provide a safe, supportive, and inclusive learning environment that fosters creativity, critical thinking, and a lifelong love of learning.
+              </p>
+            </div>
+            <div class="mission-vision-card w-full md:w-5/12">
+              <h3 class="text-xl font-semibold text-blue-600 mb-4">👁️ Our Vision</h3>
+              <p class="text-gray-700">
+                To be a globally recognized leader in early childhood and primary education, empowering students to become responsible and successful citizens.
+              </p>
+            </div>
+          </div>
+      </div>
+    </section>
+
+    <section id="academics" class="bg-gradient-to-br from-yellow-100 to-pink-100 py-20">
+      <div class="container mx-auto text-center px-4">
+        <h2 class="text-2xl font-semibold text-gray-800 mb-8">Academics</h2>
+        <div class="flex flex-wrap justify-center gap-8">
+          <div class="w-full md:w-5/12 branch-card">
+            <h3 class="text-xl font-semibold text-blue-600 mb-4">Play Group</h3>
+            <p class="text-gray-700">
+              Focus on early socialization, motor skills development, and basic concepts through play-based learning.
+            </p>
+          </div>
+          <div class="w-full md:w-5/12 branch-card">
+            <h3 class="text-xl font-semibold text-blue-600 mb-4">Nursery</h3>
+            <p class="text-gray-700">
+              Introduction to formal learning with focus on language development, numeracy skills, and creative activities.
+            </p>
+          </div>
+          <div class="w-full md:w-5/12 branch-card">
+            <h3 class="text-xl font-semibold text-blue-600 mb-4">Pre Primary</h3>
+            <p class="text-gray-700">
+              Preparation for primary school with emphasis on reading, writing, and mathematical skills, along with social and emotional development.
+            </p>
+          </div>
+          <div class="w-full md:w-5/12 branch-card">
+            <h3 class="text-xl font-semibold text-blue-600 mb-4">Primary (I - IV)</h3>
+            <p class="text-gray-700">
+              Comprehensive curriculum aligned with national standards, focusing on core subjects, critical thinking, and character development.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="events" class="py-20">
+      <div class="container mx-auto text-center px-4">
+        <h2 class="text-2xl font-semibold text-gray-800 mb-8">Events</h2>
+        <div class="flex flex-wrap justify-center gap-8">
+          <div class="w-full md:w-1/3 event-card">
+            <img src="annualDay1.jpg" alt="Annual Day" class="w-full rounded-t-md h-48 object-cover">
+            <div class="p-6">
+              <h3 class="text-xl font-semibold text-blue-600 mb-4">Annual Day</h3>
+              <p class="text-gray-700 mb-4">
+                Our Annual Day celebration showcases the talents and achievements of our students through cultural performances and awards ceremonies.
+              </p>
+              <a href="annual-day.html" class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-full transition duration-300">View Details</a>
+            </div>
+          </div>
+          <div class="w-full md:w-1/3 event-card">
+            <img src="sports1.jpeg" alt="Sports Day" class="w-full rounded-t-md h-48 object-cover">
+            <div class="p-6">
+              <h3 class="text-xl font-semibold text-blue-600 mb-4">Sports Day</h3>
+              <p class="text-gray-700 mb-4">
+                A day dedicated to sportsmanship and physical fitness, featuring various athletic events and competitions.
+              </p>
+              <a href="sports-day.html" class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-full transition duration-300">View Details</a>
+            </div>
+          </div>
+          <div class="w-full md:w-1/3 event-card">
+            <img src="inde1.jpeg" alt="Independence Day " class="w-full rounded-t-md h-48 object-cover">
+            <div class="p-6">
+              <h3 class="text-xl font-semibold text-blue-600 mb-4">Independence day</h3>
+              <p class="text-gray-700 mb-4">
+                An exhibition of scientific projects and innovations by our students, promoting curiosity and discovery.
+              </p>
+              <a href="independence.html" class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-full transition duration-300">View Details</a>
+            </div>
+          </div>
+          <div class="w-full md:w-1/3 event-card">
+            <img src="diwali.jpeg" alt="Diwali Celebration" class="w-full rounded-t-md h-48 object-cover">
+            <div class="p-6">
+              <h3 class="text-xl font-semibold text-blue-600 mb-4">Diwali Celebration</h3>
+              <p class="text-gray-700 mb-4">
+                Celebrating the festival of lights with cultural performances, decorations, and traditional activities.
+              </p>
+              <a href="diwali-celebration.html" class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-full transition duration-300">View Details</a>
+            </div>
+          </div>
+          <div class="w-full md:w-1/3 event-card">
+            <img src="child1.jpeg" alt="Children's Day" class="w-full rounded-t-md h-48 object-cover">
+            <div class="p-6">
+              <h3 class="text-xl font-semibold text-blue-600 mb-4">Children's Day</h3>
+              <p class="text-gray-700 mb-4">
+                A day dedicated to celebrating childhood with fun activities, games, and special performances.
+              </p>
+              <a href="childrens-day.html" class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-full transition duration-300">View Details</a>
+            </div>
+          </div>
+          <div class="w-full md:w-1/3 event-card">
+            <img src="pic.jpeg" alt="Graduation Day" class="w-full rounded-t-md h-48 object-cover">
+            <div class="p-6">
+              <h3 class="text-xl font-semibold text-blue-600 mb-4">Picnic Day</h3>
+              <p class="text-gray-700 mb-4">
+                Celebrating the achievements of our graduating students with a formal ceremony and speeches.
+              </p>
+              <a href="picnic.html" class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-full transition duration-300">View Details</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="school-info" class="bg-gradient-to-br from-pink-100 to-yellow-100 py-20">
+      <div class="container mx-auto text-center px-4">
+        <h2 class="text-2xl font-semibold text-gray-800 mb-8">School Information</h2>
+        <div class="flex flex-wrap justify-center gap-8">
+          <div class="w-full md:w-5/12 branch-card">
+            <h3 class="text-xl font-semibold text-blue-600 mb-4">Our Achievements</h3>
+            <ul class="list-disc list-inside text-gray-700 space-y-2">
+              <li>Consistently high academic performance</li>
+              <li>Numerous awards in sports and cultural events</li>
+              <li>Active participation in community service</li>
+              <li>Innovative teaching methodologies</li>
+            </ul>
+          </div>
+          <div class="w-full md:w-5/12 branch-card">
+            <h3 class="text-xl font-semibold text-blue-600 mb-4">Our Faculty</h3>
+            <p class="text-gray-700">
+              Our dedicated and experienced faculty members are committed to providing quality education and personalized attention to each student.
+              They create a supportive and engaging learning environment.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="message" class="py-20 message-bg">
+      <div class="container mx-auto text-center px-4">
+        <h2 class="text-2xl font-semibold text-gray-800 mb-8">Principal's message</h2>
+        <div class="flex justify-center">
+          <div class="w-full md:w-8/12 message-card">
+            <img src="principal.jpg" alt="Principal" class="w-48 h-48 rounded-full mx-auto mb-4">
+            <h3 class="text-xl font-semibold text-blue-600 mb-2">Principal Name- Anubhav Sharma</h3>
+            <p class="text-gray-600 mb-4">Principal, Godavari School</p>
+            <p class="text-gray-700">
+              "At Godavari School, we are committed to providing a nurturing and stimulating environment where every child can thrive.
+              We believe in fostering a love of learning, encouraging creativity, and developing the skills and values that will enable our students to
+              succeed in an ever-changing world.  We work closely with parents and the community to create a strong partnership that supports the
+              holistic development of each student. I am proud to lead a team of dedicated educators who are passionate about making a difference
+              in the lives of our students."
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="py-20">
+      <div class="container mx-auto text-center px-4">
+        <h2 class="text-2xl font-semibold text-gray-800 mb-8">Our Location</h2>
+        <div id="map" class="w-full h-96 rounded-md shadow-lg"></div>
+        <script>
+          var map = L.map('map').setView([17.3850, 78.4867], 13); // Hyderabad, India
+          L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          }).addTo(map);
+          L.marker([17.3850, 78.4867]).addTo(map)
+            .bindPopup('Godavari School, Hyderabad')
+            .openPopup();
+        </script>
+      </div>
+    </section>
+
+    <footer class="footer-bg py-8 mt-20">
+      <div class="container mx-auto text-center px-4">
+        <p class="footer-text">© 2024 Godavari School. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <script>
+      const hamburgerBtn = document.getElementById("hamburger-btn");
+      const mobileMenu = document.getElementById("mobile-menu");
+      const closeMenuBtn = document.getElementById("close-menu-btn");
+      const mobileMenuLinks = mobileMenu.querySelectorAll("a");
+      const navLinks = document.querySelectorAll('.nav-links a');
+      const sections = document.querySelectorAll('section');
+
+      function toggleMobileMenu() {
+        mobileMenu.classList.toggle("hidden");
+      }
+
+      hamburgerBtn.addEventListener("click", toggleMobileMenu);
+      closeMenuBtn.addEventListener("click", toggleMobileMenu);
+      mobileMenuLinks.forEach(link => {
+        link.addEventListener("click", toggleMobileMenu);
+      });
+
+      document.addEventListener('click', (event) => {
+        if (!mobileMenu.classList.contains('hidden') && !mobileMenu.contains(event.target) && event.target !== hamburgerBtn) {
+          toggleMobileMenu();
+        }
+      });
+
+      function updateActiveNavLink() {
+        let currentSectionId = '';
+        sections.forEach(section => {
+          const sectionTop = section.offsetTop;
+          const sectionHeight = section.clientHeight;
+          if (window.scrollY >= sectionTop - 100 && window.scrollY < sectionTop + sectionHeight - 100) {
+            currentSectionId = section.getAttribute('id');
+          }
+        });
+
+        navLinks.forEach(link => {
+          link.classList.remove('active');
+          if (link.getAttribute('href').slice(1) === currentSectionId) {
+            link.classList.add('active');
+          }
+        });
+      }
+
+      window.addEventListener('scroll', updateActiveNavLink);
+
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+
+          document.querySelector(this.getAttribute('href')).scrollIntoView({
+            behavior: 'smooth'
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
